@@ -1,0 +1,834 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Verademo-API",
+      "description": "API documentation",
+      "contact": {
+        "name": "Developer"
+      },
+      "servers": [
+        "http://localhost:8000/"
+      ]
+    },
+    "paths": {
+      "/admin/runCommand": {
+        "post": {
+          "description": "Used to run a command",
+          "tags": [
+            "admin"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "Command",
+              "description": "Command",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "command"
+                ],
+                "properties": {
+                  "command": {
+                    "type": "string",
+                    "example": "ls -la"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Resource added successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/admin/getFile": {
+        "post": {
+          "description": "Get file content",
+          "tags": [
+            "admin"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "Get file",
+              "description": "flename",
+              "schema": {
+                "type": "object",
+                "required": [
+                  "filename"
+                ],
+                "properties": {
+                  "filename": {
+                    "type": "string",
+                    "example": "../index.js"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Resource added successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/posts/getBlabsForMe": {
+        "get": {
+          "description": "Get blabs written for user",
+          "tags": [
+            "blabs"
+          ],
+          "responses": {
+            "200": {
+              "description": "Resource added successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/posts/getBlabsByMe": {
+        "get": {
+          "description": "Get blabs written by user",
+          "tags": [
+            "blabs"
+          ],
+          "responses": {
+            "200": {
+              "description": "Resource added successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/posts/addBlab": {
+        "post": {
+          "summary": "add a blab to db",
+          "tags": [
+            "blabs"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blab": {
+                      "type": "string",
+                      "description": "The blab to write",
+                      "example": "This is a test blab"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Database changed successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/posts/getAllBlabs": {
+        "get": {
+          "description": "Get all blabs",
+          "tags": [
+            "blabs"
+          ],
+          "responses": {
+            "200": {
+              "description": "Resource received successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "blabid": {
+                              "type": "integer",
+                              "description": "blabid",
+                              "example": 1
+                            },
+                            "blabber": {
+                              "type": "string",
+                              "description": "user blab name",
+                              "example": "paul"
+                            },
+                            "content": {
+                              "type": "string",
+                              "description": "Blab content.",
+                              "example": "Example blab content"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/posts/addBlabComment": {
+        "post": {
+          "summary": "add a comment to blab",
+          "tags": [
+            "blabs"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blabId": {
+                      "type": "integer",
+                      "description": "The the blabId to comment on",
+                      "example": 72
+                    },
+                    "comment": {
+                      "type": "string",
+                      "description": "The comment text",
+                      "example": "Test comment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Resource added successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/posts/getBlabComments": {
+        "post": {
+          "description": "Get all blabs",
+          "tags": [
+            "blabs"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blabId": {
+                      "type": "integer",
+                      "description": "The blab to get comments for",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Resource received successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "blabid": {
+                              "type": "integer",
+                              "description": "blabid",
+                              "example": 1
+                            },
+                            "blabber": {
+                              "type": "string",
+                              "description": "user blab name",
+                              "example": "paul"
+                            },
+                            "content": {
+                              "type": "string",
+                              "description": "Blab content.",
+                              "example": "Example blab content"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/posts/deleteBlab": {
+        "delete": {
+          "description": "Used to delete Blab",
+          "tags": [
+            "blabs"
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "blabId",
+              "type": "integer",
+              "description": "Blab id",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Resource added successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/getBlabbers": {
+        "get": {
+          "description": "get Blabbers",
+          "tags": [
+            "users"
+          ],
+          "responses": {
+            "200": {
+              "description": "Resource accessed successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "username": {
+                              "type": "string",
+                              "description": "The blabber username.",
+                              "example": "april"
+                            },
+                            "blab_name": {
+                              "type": "string",
+                              "description": "The blabber blab name.",
+                              "example": "April"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "description": "the datetime blabber was created.",
+                              "example": "2024-08-05T19:58:03.000Z"
+                            },
+                            "listeners": {
+                              "type": "integer",
+                              "description": "Whether user is listening to this blabber",
+                              "example": 0
+                            },
+                            "listening": {
+                              "type": "integer",
+                              "description": "The bumber of accounts listening to this blabber",
+                              "example": 17
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/ignore": {
+        "post": {
+          "summary": "ignore a user",
+          "tags": [
+            "users"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blabberUsername": {
+                      "type": "string",
+                      "description": "The blabber to ignore",
+                      "example": "johnny"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Database changed successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/listen": {
+        "post": {
+          "summary": "listen to a user",
+          "tags": [
+            "users"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "blabberUsername": {
+                      "type": "string",
+                      "description": "The blabber to listen to.",
+                      "example": "johnny"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Database changed successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/getProfileInfo": {
+        "get": {
+          "description": "Get a User's information",
+          "tags": [
+            "users"
+          ],
+          "responses": {
+            "200": {
+              "description": "Information Retrieved",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "hecklers": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "username": {
+                                  "type": "string",
+                                  "description": "The heckler username.",
+                                  "example": "april"
+                                },
+                                "blab_name": {
+                                  "type": "string",
+                                  "description": "The heckler blab name.",
+                                  "example": "April"
+                                },
+                                "created_at": {
+                                  "type": "string",
+                                  "description": "the datetime heckler was created.",
+                                  "example": "2024-08-05T19:58:03.000Z"
+                                }
+                              }
+                            }
+                          },
+                          "events": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "description": "the event that occurred",
+                              "example": "Brian stopped listening to Johnny"
+                            }
+                          },
+                          "username": {
+                            "type": "string",
+                            "description": "The username",
+                            "example": "april"
+                          },
+                          "realName": {
+                            "type": "string",
+                            "description": "The real name",
+                            "example": "Brian Pitta"
+                          },
+                          "blabName": {
+                            "type": "string",
+                            "description": "The blab name",
+                            "example": "Brian"
+                          },
+                          "totpSecret": {
+                            "type": "string",
+                            "description": "The totpSecret code",
+                            "example": "FZQWCJRVHZWFKMLGPFIS6ZCRIZBEGWZ6"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/getEvents": {
+        "get": {
+          "description": "Get a User's event history",
+          "tags": [
+            "users"
+          ],
+          "responses": {
+            "200": {
+              "description": "Events Retrieved",
+              "content": null,
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "the event that occurred",
+                        "example": "Brian stopped listening to Johnny"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/updateProfile": {
+        "post": {
+          "summary": "update the user's profile",
+          "tags": [
+            "users"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "description": "The new username",
+                      "example": "brian"
+                    },
+                    "blabName": {
+                      "type": "string",
+                      "description": "The new blab name",
+                      "example": "Stydvin"
+                    },
+                    "realName": {
+                      "type": "string",
+                      "description": "The new real name",
+                      "example": "StuKevClyde"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Database changed successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/register": {
+        "post": {
+          "summary": "register a user",
+          "tags": [
+            "users"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "description": "The new username",
+                      "example": "carst"
+                    },
+                    "password": {
+                      "type": "string",
+                      "description": "new password",
+                      "example": "carst"
+                    },
+                    "cpassword": {
+                      "type": "string",
+                      "description": "confirmed password",
+                      "example": "carst"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Database changed successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/reset": {
+        "get": {
+          "description": "reset database",
+          "tags": [
+            "users"
+          ],
+          "responses": {
+            "200": {
+              "description": "Resource accessed successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/getUsers": {
+        "get": {
+          "description": "Get all users",
+          "tags": [
+            "users"
+          ],
+          "responses": {
+            "200": {
+              "description": "Resource accessed successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "username": {
+                              "type": "string",
+                              "description": "The username.",
+                              "example": "april"
+                            },
+                            "real_name": {
+                              "type": "string",
+                              "description": "user real name",
+                              "example": "April Sauer"
+                            },
+                            "blab_name": {
+                              "type": "string",
+                              "description": "The user blab name.",
+                              "example": "April"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "description": "the datetime user was created.",
+                              "example": "2024-08-05T19:58:03.000Z"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/getUser": {
+        "get": {
+          "description": "Get get specified user",
+          "tags": [
+            "users"
+          ],
+          "responses": {
+            "200": {
+              "description": "Resource accessed successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      },
+      "/users/login": {
+        "post": {
+          "summary": "login a user",
+          "tags": [
+            "users"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "description": "The new username",
+                      "example": "brian"
+                    },
+                    "password": {
+                      "type": "string",
+                      "description": "new password",
+                      "example": "brian"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Database changed successfully"
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+      }
+    },
+    "components": {},
+    "tags": []
+  }

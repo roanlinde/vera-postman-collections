@@ -1,0 +1,60 @@
+{
+    "name": "DA job name",
+    "scans":
+    [
+        {
+            "action_type": "ADD",
+            "request_id": "0",
+            "scan_config_request":
+            {
+                "target_url":
+                {
+                    "url": "target_url"
+                },
+                "auth_configuration": {
+                    "authentications": {
+                       "HEADER": {
+                          "authtype": "HEADER",
+                          "headers": [
+                             {
+                                "key": "Authorization",
+                                "value": "Token <your_token>",
+                                "url": ""
+                             }
+                          ]
+                       }
+                    }
+                 },
+                 "scan_setting": {
+                    "blacklist_configuration": {
+                        "blackList": [
+                            {"url": "http://verademoapi.aszaryk.vuln.sa.veracode.io:8000/users/reset",
+                             "http_and_https": true,
+                             "directory_restriction_type": "FILE"},
+                            {"url": "http://verademoapi.aszaryk.vuln.sa.veracode.io:8000/users/updateProfile",
+                             "http_and_https": true,
+                             "directory_restriction_type": "FILE"}
+                        ]
+                    }
+                },
+                "api_scan_setting":
+                {
+                    "spec_id": "spec_id"
+                }
+            }
+        }
+    ],
+    "visibility":
+    {
+        "setup_type": "SEC_LEADS_ONLY",
+        "team_identifiers":
+        []
+    },
+  "schedule": {
+    "now": true,
+    "duration": {
+      "length": 1,
+      "unit": "DAY"
+    }
+  }
+}
